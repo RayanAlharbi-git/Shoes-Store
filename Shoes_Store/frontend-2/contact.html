@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact Us</title>
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+        font-family: "Arial", sans-serif;
+      }
+
+      body {
+        background: linear-gradient(to left, rgb(37, 36, 36), rgb(62, 47, 47));
+        height: 100vh;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden; /* Prevent body scroll */
+      }
+
+      body::after {
+        content: "";
+        width: 100%;
+        height: 100%;
+        background-color: brown;
+        position: absolute;
+        z-index: -1;
+        clip-path: circle(40% at right 70%);
+      }
+
+      .container {
+        background-color: rgba(255, 255, 255, 0.1);
+        width: 80%;
+        height: 80%;
+        border-radius: 20px;
+        overflow-y: auto; /* Enable vertical scrolling */
+        padding-bottom: 20px; /* Add padding to the bottom */
+        position: relative;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      }
+
+      /* Custom Scrollbar Styles */
+      .container::-webkit-scrollbar {
+        width: 12px; /* Width of the scrollbar */
+      }
+
+      .container::-webkit-scrollbar-track {
+        background: rgba(
+          255,
+          255,
+          255,
+          0.1
+        ); /* Background of the scrollbar track */
+        border-radius: 10px;
+      }
+
+      .container::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.8); /* Color of the scrollbar thumb */
+        border-radius: 10px;
+        border: 3px solid rgba(255, 255, 255, 0.1); /* Padding around the thumb */
+      }
+
+      .container::-webkit-scrollbar-thumb:hover {
+        background: rgba(
+          255,
+          69,
+          0,
+          1
+        ); /* Color of the scrollbar thumb on hover */
+      }
+
+      nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 80%;
+        margin: auto;
+        padding: 20px 0;
+      }
+
+      nav .logo {
+        color: #ffffff;
+        font-size: 32px;
+        letter-spacing: 3px;
+        font-weight: 700;
+      }
+
+      nav ul {
+        list-style: none;
+        display: flex;
+      }
+
+      nav ul li {
+        margin: 0 10px;
+      }
+
+      nav ul li a {
+        color: white;
+        text-decoration: none;
+        font-size: 18px;
+        font-weight: 500;
+        position: relative;
+        overflow: hidden;
+        transition: color 0.3s;
+      }
+
+      nav ul li a::before {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 2px;
+        bottom: -2px;
+        left: 0;
+        background-color: red;
+        transition: transform 0.3s;
+        transform: scaleX(0);
+        transform-origin: right;
+      }
+
+      nav ul li a:hover {
+        color: red;
+      }
+
+      nav ul li a:hover::before {
+        transform: scaleX(1);
+        transform-origin: left;
+      }
+
+      .container-contact {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: calc(100% - 80px); /* Adjust height to fit the container */
+        padding: 20px;
+      }
+
+      form {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        border-radius: 15px;
+        padding: 20px;
+        width: 90%;
+        max-width: 600px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        transition: transform 0.3s, box-shadow 0.3s;
+      }
+
+      form:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
+      }
+
+      form h1 {
+        color: #fff;
+        font-weight: 500;
+        margin-bottom: 20px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      }
+
+      .form-group {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+      }
+
+      form input,
+      form textarea {
+        background: rgba(255, 255, 255, 0.2);
+        border: none;
+        border-bottom: 2px solid #fff;
+        color: #fff;
+        font-size: 15px;
+        padding: 10px;
+        width: 48%; /* Adjusted width for form-group inputs */
+        transition: background 0.3s, border-bottom 0.3s;
+        border-radius: 5px;
+      }
+
+      form input:focus,
+      form textarea:focus {
+        background: rgba(255, 255, 255, 0.4);
+        border-bottom: 2px solid red;
+        outline: none;
+      }
+
+      form input::placeholder,
+      form textarea::placeholder {
+        color: #ddd;
+      }
+
+      form textarea {
+        width: 100%;
+        resize: none;
+        min-height: 100px;
+      }
+
+      form h4 {
+        width: 100%;
+        color: #fff;
+        font-weight: 300;
+        margin-bottom: 10px;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+      }
+
+      #button {
+        border: none;
+        background-color: #333;
+        color: white;
+        border-radius: 5px;
+        font-size: 20px;
+        font-weight: 600;
+        padding: 10px 20px;
+        cursor: pointer;
+        transition: background-color 0.3s, transform 0.3s;
+        margin-top: 20px; /* Added margin-top for space */
+      }
+
+      #button:hover {
+        background-color: red;
+        color: #fff;
+        transform: scale(1.1);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <nav>
+        <h1 class="logo">ADIDAS</h1>
+        <ul id="navItems">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="products.html">Products</a></li>
+          <li id="userSection" style="display: none">
+            <div class="user-icon" id="userIcon">
+              <div class="dropdown" id="dropdownMenu">
+                <a href="#" id="logout">Logout</a>
+              </div>
+            </div>
+          </li>
+          <li id="loginSection"><a href="login.html">Login</a></li>
+          <li id="registrationSection">
+            <a href="registration.html">Register</a>
+          </li>
+          <li><a href="contact.html">Contact Us</a></li>
+          <li>
+            <a href="cart.html"
+              ><span class="material-icons">shopping_cart</span></a
+            >
+          </li>
+        </ul>
+      </nav>
+
+      <div class="container-contact">
+        <form>
+          <h1>Contact Us</h1>
+          <div class="form-group">
+            <input
+              type="text"
+              id="firstName"
+              placeholder="First Name"
+              required
+            />
+            <input type="text" id="lastName" placeholder="Last Name" required />
+          </div>
+          <div class="form-group">
+            <input type="email" id="email" placeholder="Email" required />
+            <input type="text" id="mobile" placeholder="05xxxxxxxx" required />
+          </div>
+          <h4>Type Your Message Here...</h4>
+          <textarea required placeholder="Text Message..."></textarea>
+          <input type="submit" value="Send" id="button" />
+        </form>
+      </div>
+    </div>
+    <script src="./script/script.js"></script>
+  </body>
+</html>

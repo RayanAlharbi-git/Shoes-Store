@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Adidas Store - Products</title>
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <style>
+      /* General Reset */
+      * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+        font-family: "Arial", sans-serif;
+      }
+
+      /* Body Styling */
+      body {
+        background: linear-gradient(to left, rgb(37, 36, 36), rgb(62, 47, 47));
+        height: 100vh;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+      }
+
+      body::after {
+        content: "";
+        width: 100%;
+        height: 100%;
+        background-color: brown;
+        position: absolute;
+        z-index: -1;
+        clip-path: circle(40% at right 70%);
+      }
+
+      /* Container Styling */
+      .container {
+        background-color: rgba(255, 255, 255, 0.1);
+        width: 80%;
+        height: 80%;
+        border-radius: 20px;
+        overflow-y: auto;
+        padding-bottom: 20px;
+        position: relative;
+      }
+
+      /* Custom Scrollbar Styles */
+      .container::-webkit-scrollbar {
+        width: 12px;
+      }
+
+      .container::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+      }
+
+      .container::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.8);
+        border-radius: 10px;
+        border: 3px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .container::-webkit-scrollbar-thumb:hover {
+        background: rgba(255, 69, 0, 1);
+      }
+
+      /* Navigation Styling */
+      nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 80%;
+        margin: auto;
+        padding: 20px 0;
+      }
+
+      nav .logo {
+        color: #ffffff;
+        font-size: 32px;
+        letter-spacing: 3px;
+        font-weight: 700;
+      }
+
+      nav ul {
+        list-style: none;
+        display: flex;
+      }
+
+      nav ul li {
+        margin: 0 10px;
+      }
+
+      nav ul li a {
+        color: white;
+        text-decoration: none;
+        font-size: 18px;
+        font-weight: 500;
+        position: relative;
+        overflow: hidden;
+        transition: color 0.3s;
+      }
+
+      nav ul li a::before {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 2px;
+        bottom: -2px;
+        left: 0;
+        background-color: red;
+        transition: transform 0.3s;
+        transform: scaleX(0);
+        transform-origin: right;
+      }
+
+      nav ul li a:hover {
+        color: red;
+      }
+
+      nav ul li a:hover::before {
+        transform: scaleX(1);
+        transform-origin: left;
+      }
+
+      /* Filters Styling */
+      .filters {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 20px 0;
+        flex-wrap: wrap;
+      }
+
+      .filters button,
+      .filters select,
+      .filters input[type="number"] {
+        background-color: #333;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        margin: 5px;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s, transform 0.3s, color 0.3s;
+      }
+
+      .filters button:hover,
+      .filters select:hover,
+      .filters input[type="number"]:hover {
+        background-color: #ff0000;
+        color: #fff;
+        transform: scale(1.1);
+      }
+
+      .filters input[type="number"]::placeholder {
+        color: #ddd;
+        transition: color 0.3s;
+      }
+
+      .filters input[type="number"]:hover::placeholder {
+        color: white;
+      }
+
+      .filters label {
+        margin: 0 10px;
+        color: white;
+        font-size: 16px;
+      }
+
+      .price-range {
+        display: flex;
+        align-items: center;
+      }
+
+      /* Product Styling */
+      .products {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+      }
+
+      .product-box {
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        text-align: center;
+        padding: 20px;
+        width: 30%;
+        margin: 10px;
+        color: white;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        box-sizing: border-box;
+        height: 450px;
+        transition: transform 0.3s, box-shadow 0.3s;
+      }
+
+      .product-box:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+      }
+
+      .product-box img {
+        width: auto;
+        height: 150px;
+        border-radius: 10px;
+        margin-bottom: 10px;
+        transition: transform 0.3s;
+      }
+
+      .product-box:hover img {
+        transform: scale(1.1);
+      }
+
+      .product-box h3 {
+        margin: 10px;
+        font-size: 22px;
+      }
+
+      .product-box p {
+        font-size: 18px;
+        margin: 5px 0;
+      }
+
+      .sizes {
+        margin: 10px 0;
+      }
+
+      .sizes label {
+        font-size: 16px;
+        margin-right: 5px;
+      }
+
+      .sizes select {
+        padding: 5px;
+        font-size: 16px;
+      }
+
+      .buy-button {
+        margin-top: 10px;
+        padding: 10px 20px;
+        background-color: #ffffff;
+        color: #000000;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s, transform 0.3s;
+      }
+
+      .buy-button:hover {
+        background-color: #ff0000;
+        color: #ffffff;
+        transform: scale(1.1);
+      }
+      /* Active filter button styling */
+      .filters button[data-category].active {
+        background-color: #ff0000; /* Highlight color */
+        color: #ffffff; /* Text color when active */
+        transform: scale(1.1); /* Slightly larger to show active state */
+      }
+
+      /* Ensure button does not overflow */
+      .product-box {
+        overflow: hidden; /* Prevent content from overflowing */
+      }
+
+      .buy-button {
+        display: inline-block; /* Ensures button does not stretch */
+      }
+      .delete-button {
+        margin-top: 5px;
+        background-color: red;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 5px 10px;
+        font-size: 14px;
+        cursor: pointer;
+        transition: background-color 0.3s, transform 0.3s;
+      }
+
+      .delete-button:hover {
+        background-color: darkred;
+        transform: scale(1.1);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <nav>
+        <h1 class="logo">ADIDAS</h1>
+        <ul id="navItems">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="products.html">Products</a></li>
+          <li id="userSection" style="display: none">
+            <div class="user-icon" id="userIcon">
+              <div class="dropdown" id="dropdownMenu">
+                <a href="#" id="logout">Logout</a>
+              </div>
+            </div>
+          </li>
+          <li id="loginSection"><a href="login.html">Login</a></li>
+          <li id="registrationSection">
+            <a href="registration.html">Register</a>
+          </li>
+          <li><a href="contact.html">Contact Us</a></li>
+          <li>
+            <a href="cart.html"
+              ><span class="material-icons">shopping_cart</span></a
+            >
+          </li>
+        </ul>
+      </nav>
+      <div class="filters">
+        <button data-category="all" onclick="filterProducts('all')">All</button>
+        <button data-category="men" onclick="filterProducts('men')">Men</button>
+        <button data-category="women" onclick="filterProducts('women')">
+          Women
+        </button>
+        <button data-category="kids" onclick="filterProducts('kids')">
+          Kids
+        </button>
+
+        <select id="priceSort" onchange="sortProductsByPrice()">
+          <option value="default">Sort by Price</option>
+          <option value="lowToHigh">Low to High</option>
+          <option value="highToLow">High to Low</option>
+        </select>
+        <div class="price-range">
+          <label for="minPrice">Min Price:</label>
+          <input
+            type="number"
+            id="minPrice"
+            placeholder="Min"
+            oninput="filterByPriceRange()"
+          />
+          <label for="maxPrice">Max Price:</label>
+          <input
+            type="number"
+            id="maxPrice"
+            placeholder="Max"
+            oninput="filterByPriceRange()"
+          />
+        </div>
+      </div>
+
+      <div class="products" id="productList">
+        <!-- Products will be dynamically inserted here -->
+      </div>
+    </div>
+
+    <script src="./script/product.js"></script>
+    <script src="./script/script.js"></script>
+  </body>
+</html>
